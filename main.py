@@ -174,8 +174,8 @@ while True:
                     print(row)
                 file.close
             choice_for_more_update = input("Do you Want to update More Information [y/n]\n")
-            if choice_for_more_update == 'N' or choice_for_more_update == 'n':
-                break
+        if choice_for_more_update == 'N' or choice_for_more_update == 'n':
+            break
 
 
 
@@ -188,6 +188,9 @@ while True:
                 Dworker = input("Enter Worker Name whom you want to remove \n")
             except ValueError:
                 print("Please Enter Valid Worker Id")
+                continue
+            finally:
+                pass
 
             Found_delete = False
             for row in Reader:
@@ -208,7 +211,7 @@ while True:
                 file.close()
 
             choice_for_more_Delete = input("Do You want to delete more Information [y/n]\n")
-            if choice_for_more_Delete == 'y' or choice_for_more_Delete == 'Y':
+            if choice_for_more_Delete == 'n' or choice_for_more_Delete == 'N':
                 break
 
     choice_for_exit = input("IF YOU WANT TO EXIT THEN PRESS YES AND IF YOU DO NOT WANT TO EXIT PRESS NO \n")
