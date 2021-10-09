@@ -21,6 +21,12 @@ class Worker:
     def display_details(self):
         print('|',self.name,'|', self.gender,'  |', self.city,'|', self.age,' |', self.dob,'   |', self.address,' |', self.qualification,'     |', self.designation,' |', self.salary,' |')
 
+    def open_csv(self):
+        pass
+
+    def csv_close(self):
+        pass
+
 
 while True:
     while True:
@@ -55,9 +61,10 @@ while True:
                     print(workerobj.designation)
                     print(workerobj.salary)
                     print(workerobj.worker_count)
-                with open('Workerinformation.csv','w', newline='') as file:
+
+                with open('Workerinformation.csv','a+', newline='') as file:
                     myFile = csv.writer(file)
-                    myFile.writerow(["id", "Name", "Gender", "City", "Age", "Date Of Birth", "Address", "Qulification", "Designation", "Salary"])
+                    myFile.writerow(["Name", "Gender", "City", "Age", "Date Of Birth", "Address", "Qulification", "Designation", "Salary"])
                     for workerobj in Worker.worker_list:
                         WorkerName = (workerobj.name)
                         WorkerGender = (workerobj.gender)
@@ -69,6 +76,8 @@ while True:
                         WorkerDesignation = (workerobj.designation)
                         WorkerSalary = (workerobj.salary)
                         myFile.writerow([WorkerName, WorkerGender, WorkerCity, WorkerAge, WorkerDate_Of_Birth, WorkerAddress, WorkerQulificat, WorkerDesignation, WorkerSalary])
+
+
 
 
                 choice_for_display = input("You Want to see the data which is inserted y or n ")
@@ -102,8 +111,7 @@ while True:
             Update_worker = []
             Found =False
             for row in Reader:
-                if (len(row) < 1):
-                    if row[1] == str(Uworker_name):
+                    if row[0] == str(Uworker_name):
                         Found = True
                         while True:
                             try:
@@ -116,7 +124,7 @@ while True:
                                                               "\n6) Address"
                                                               "\n7) Qulification"
                                                               "\n8) Designation"
-                                                              "\n 9) Salary \n"))
+                                                              "\n9) Salary \n"))
                             except ValueError:
                                 print("Sorry I dont understand you choice")
                                 continue
@@ -124,78 +132,77 @@ while True:
                                 break
                         if choice_for_update == 1:
                             name = input("Enter the new Name you want to update \n")
-                            row[1] = name
+                            row[0] = name
                             Update_worker.append(row)
 
                         elif choice_for_update == 2:
                             Gender = input("Enter the Gender Again \n")
-                            row[2] = Gender
+                            row[1] = Gender
                             Update_worker.append(row)
 
                         elif choice_for_update == 3:
                             City = input("Enter the new City of Worker \n")
-                            row[3] = City
+                            row[2] = City
                             Update_worker.append(row)
 
                         elif choice_for_update == 4:
                             Age = input("Enter The new Age of Worker \n")
-                            row[4] = Age
+                            row[3] = Age
                             Update_worker.append(row)
 
                         elif choice_for_update == 5:
                             Date_Of_Birth = input("Enter the new date of birth of Worker \n")
-                            row[5] = Date_Of_Birth
+                            row[4] = Date_Of_Birth
                             Update_worker.append(row)
 
                         elif choice_for_update == 6:
                             Address = input("Enter the new Address of Worker \n")
-                            row[6] = Address
+                            row[5] = Address
                             Update_worker.append(row)
 
                         elif choice_for_update == 7:
                             Qualification = input("Enter the new qualification of a worker \n")
-                            row[7] = Qualification
+                            row[6] = Qualification
                             Update_worker.append(row)
                         elif choice_for_update == 8:
                             Designation = input("Enter the new Designation of a Worker \n")
-                            row[8] = Designation
+                            row[7] = Designation
                             Update_worker.append(row)
                         elif choice_for_update == 9:
                             Salary = input("Enter the new Salary of a Worker \n")
+                            row[8] = Salary
+                            Update_worker.append(row)
             file.close()
             if Found == False:
                 print('Worker Not Found')
             else:
-                file = open('Workerinformation.csv', 'w+', newline='')
+                file = open('Workerinformation.csv', 'a+')
                 writer = csv.writer(file)
                 writer.writerows(Update_worker)
-                file.seek(0)
-                for row in Reader:
-                    print(row)
                 file.close
+                print("Worker details Updated succesfully")
             choice_for_more_update = input("Do you Want to update More Information [y/n]\n")
-        if choice_for_more_update == 'N' or choice_for_more_update == 'n':
-            break
+            if choice_for_more_update == 'N' or choice_for_more_update == 'n':
+                break
 
 
 
     elif choice_of_user == 4:
         while True:
-            files = open('Workerinformation.csv', 'r')
+            files = open('Workerinformation.csv', 'r+')
             Reader = csv.reader(files)
             delete_worker = []
             try:
                 Dworker = input("Enter Worker Name whom you want to remove \n")
             except ValueError:
-                print("Please Enter Valid Worker Id")
-                continue
+                print("Please Enter Valid Worker Name")
             finally:
                 pass
 
             Found_delete = False
             for row in Reader:
-                    if row[1] == str(Dworker):
-                        Found = True
+                    if row[0] == str(Dworker):
+                        Found_delete = True
                     else:
                         delete_worker.append(row)
             files.close()
@@ -204,7 +211,7 @@ while True:
             else:
                 files = open('Workerinformation.csv', 'w+', newline='')
                 writer = csv.writer(files)
-                file.seek(0)
+                files.seek(0)
                 Reader = csv.reader(files)
                 for row in Reader:
                     print(row)
