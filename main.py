@@ -21,11 +21,15 @@ class Worker:
     def display_details(self):
         print('|',self.name,'|', self.gender,'  |', self.city,'|', self.age,' |', self.dob,'   |', self.address,' |', self.qualification,'     |', self.designation,' |', self.salary,' |')
 
-    def open_csv(self):
-        pass
+    def Search():
+        Name_to_search = input('Enter the Name whose information you want to search \n')
+        csv_file = csv.reader(open('Workerinformation.csv','r'))
+        for row in csv_file:
+            if Name_to_search == row[0]:
+                print(row)
+            else:
+                print("data not found in csv file")
 
-    def csv_close(self):
-        pass
 
 
 while True:
@@ -89,13 +93,7 @@ while True:
                 if choice == 'yes' or choice == 'YES':
                     break
     elif choice_of_user == 2:
-        search_name = input("Enter the Information you want to search: ")
-        for workerobj in Worker.worker_list:
-            if search_name == workerobj.name:
-                print('|', workerobj.name, '|', workerobj.gender, '  |', workerobj.city, '|', workerobj.age, ' |', workerobj.dob, '   |',
-                      workerobj.address, ' |', workerobj.qualification, '     |', workerobj.designation, ' |', workerobj.salary, ' |')
-        else:
-            print("Data not found against the search")
+        Worker.Search()
     elif choice_of_user == 3:
         while True:
             while True:
@@ -111,6 +109,8 @@ while True:
             Update_worker = []
             Found =False
             for row in Reader:
+                print(row)
+                for row in Reader:
                     if row[0] == str(Uworker_name):
                         Found = True
                         while True:
@@ -189,9 +189,13 @@ while True:
 
     elif choice_of_user == 4:
         while True:
-            files = open('Workerinformation.csv', 'r+')
-            Reader = csv.reader(files)
-            delete_worker = []
+            try:
+                files = open('Workerinformation.csv', 'r+')
+                Reader = csv.reader(files)
+                delete_worker = []
+            except FileNotFoundError:
+                print("you Don't have csv file 1st insert data and try again")
+
             try:
                 Dworker = input("Enter Worker Name whom you want to remove \n")
             except ValueError:
@@ -201,6 +205,8 @@ while True:
 
             Found_delete = False
             for row in Reader:
+                print(row)
+                for row in Reader:
                     if row[0] == str(Dworker):
                         Found_delete = True
                     else:
@@ -215,7 +221,7 @@ while True:
                 Reader = csv.reader(files)
                 for row in Reader:
                     print(row)
-                file.close()
+                files.close()
 
             choice_for_more_Delete = input("Do You want to delete more Information [y/n]\n")
             if choice_for_more_Delete == 'n' or choice_for_more_Delete == 'N':
