@@ -24,11 +24,13 @@ class Worker:
     def Search():
         Name_to_search = input('Enter the Name whose information you want to search \n')
         csv_file = csv.reader(open('Workerinformation.csv','r'))
+        flag = False
         for row in csv_file:
             if Name_to_search == row[0]:
+                flag = True
                 print(row)
-            else:
-                print("data not found in csv file")
+        if flag == False:
+            print("data not found in csv file")
 
 
 
@@ -106,12 +108,13 @@ while True:
                     break
             file = open('Workerinformation.csv', 'r')
             Reader = csv.reader(file)
-            Update_worker = []
             Found =False
+            modifaied_list = []
             for row in Reader:
                 print(row)
                 for row in Reader:
                     if row[0] == str(Uworker_name):
+                        print(row)
                         Found = True
                         while True:
                             try:
@@ -133,54 +136,54 @@ while True:
                         if choice_for_update == 1:
                             name = input("Enter the new Name you want to update \n")
                             row[0] = name
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
 
                         elif choice_for_update == 2:
                             Gender = input("Enter the Gender Again \n")
                             row[1] = Gender
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
 
                         elif choice_for_update == 3:
                             City = input("Enter the new City of Worker \n")
                             row[2] = City
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
 
                         elif choice_for_update == 4:
                             Age = input("Enter The new Age of Worker \n")
                             row[3] = Age
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
 
                         elif choice_for_update == 5:
                             Date_Of_Birth = input("Enter the new date of birth of Worker \n")
                             row[4] = Date_Of_Birth
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
 
                         elif choice_for_update == 6:
                             Address = input("Enter the new Address of Worker \n")
                             row[5] = Address
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
 
                         elif choice_for_update == 7:
                             Qualification = input("Enter the new qualification of a worker \n")
                             row[6] = Qualification
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
                         elif choice_for_update == 8:
                             Designation = input("Enter the new Designation of a Worker \n")
                             row[7] = Designation
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
                         elif choice_for_update == 9:
                             Salary = input("Enter the new Salary of a Worker \n")
                             row[8] = Salary
-                            Update_worker.append(row)
+                            modifaied_list.append(row)
             file.close()
             if Found == False:
                 print('Worker Not Found')
             else:
-                file = open('Workerinformation.csv', 'a+')
+                file = open('Workerinformation.csv', 'w',newline='')
                 writer = csv.writer(file)
-                writer.writerows(Update_worker)
-                file.close
+                writer.writerows(modifaied_list)
                 print("Worker details Updated succesfully")
+                file.close()
             choice_for_more_update = input("Do you Want to update More Information [y/n]\n")
             if choice_for_more_update == 'N' or choice_for_more_update == 'n':
                 break
@@ -190,9 +193,8 @@ while True:
     elif choice_of_user == 4:
         while True:
             try:
-                files = open('Workerinformation.csv', 'r+')
+                files = open('Workerinformation.csv', 'r')
                 Reader = csv.reader(files)
-                delete_worker = []
             except FileNotFoundError:
                 print("you Don't have csv file 1st insert data and try again")
 
@@ -202,26 +204,24 @@ while True:
                 print("Please Enter Valid Worker Name")
             finally:
                 pass
-
             Found_delete = False
+            delete_list =[]
             for row in Reader:
-                print(row)
-                for row in Reader:
-                    if row[0] == str(Dworker):
-                        Found_delete = True
-                    else:
-                        delete_worker.append(row)
+                if row[0] != str(Dworker):
+                    delete_list.append(row)
+                else:
+                    Found_delete = True
             files.close()
             if Found_delete == False:
-                print('Worker not Found to Delete')
+                print("data not found to delete")
+
             else:
-                files = open('Workerinformation.csv', 'w+', newline='')
+                files = open('Workerinformation.csv','w',newline ='')
                 writer = csv.writer(files)
-                files.seek(0)
-                Reader = csv.reader(files)
-                for row in Reader:
-                    print(row)
+                writer.writerows(delete_list)
+                print("Record deleted successfully")
                 files.close()
+
 
             choice_for_more_Delete = input("Do You want to delete more Information [y/n]\n")
             if choice_for_more_Delete == 'n' or choice_for_more_Delete == 'N':
