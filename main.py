@@ -5,9 +5,18 @@ class Worker:
     worker_list = []
 
     def Add_Employ(self):
-        self.name = input("Enter Employ Name  : \n")
-        self.gender = input("Enter The Gender : \n")
-        self.city = input("Enter The City of Worker : \n")
+        while True:
+            self.name = input("Enter Employ Name  : \n")
+            if self.name != "":
+                break
+        while True:
+            self.gender = input("Enter The Gender : \n")
+            if  self.gender == 'Male' or self.gender == 'MALE' or self.gender == 'Female' or self.gender == 'male' or self.gender ==  'female' or self.gender == 'FEMALE':
+                break
+        while True:
+            self.city = input("Enter The City of Worker : \n")
+            if self.city != "":
+                break
         while True:
             try:
                 self.age = int(input("Enter the Age of a Worker : \n"))
@@ -15,9 +24,25 @@ class Worker:
                 print("Please Enter valid age")
             else:
                 break
-        self.dob = (input("Enter The Date of Birth Of a Worker in DD-MM-YYYY :  \n"))
-        self.address = input("Enter The Proper Address with Pin Cod e of a Worker : \n")
-        self.qualification = input("Enter The highest qualification of a worker : \n")
+        while True:
+            try:
+                self.dob = int(input("Enter The Date of Birth Of a Worker in DDMMYYYY :  \n"))
+            except ValueError:
+                print("Please Enter Number Only")
+            else:
+                break
+        while True:
+            self.address = input("Enter The Proper Address with Pin Cod e of a Worker : \n")
+            if self.address != "":
+                break
+        while True:
+            try:
+                self.qualification = int(input("Enter The highest qualification of a worker : \n"))
+            except ValueError:
+                print("Please Enter Valid qulification")
+            else:
+                break
+
         self.designation = input("Enter Employ Post : \n")
         while True:
             try:
@@ -35,11 +60,11 @@ class Worker:
 
     def Search():
         csv_file = csv.reader(open('Workerinformation.csv','r'))
-        Name_to_search = input('Enter the Name whose information you want to search \n')
+        Name_to_search = input('Enter the ID whose information you want to search \n')
         flag = False
         for row in csv_file:
             try:
-                if Name_to_search == row[1]:
+                if Name_to_search == row[0]:
                     flag = True
                     print(row)
             except IndexError:
@@ -75,45 +100,84 @@ class Worker:
                         else:
                             break
                     if choice_for_update == 1:
-                        name = input("Enter the new Name you want to update \n")
+                        while True:
+                            name = input("Enter the new Name you want to update \n")
+                            if name != "":
+                                break
                         row[1] = name
 
 
                     elif choice_for_update == 2:
-                        Gender = input("Enter the Gender Again \n")
+                        while True:
+                            Gender = input("Enter the Gender Again \n")
+                            if Gender == 'Male' or Gender == 'MALE' or Gender == 'Female' or Gender == 'male' or Gender ==  'female' or Gender == 'FEMALE':
+                                break
                         row[2] = Gender
 
 
                     elif choice_for_update == 3:
-                        City = input("Enter the new City of Worker \n")
+                        while True:
+                            City = input("Enter the new City of Worker \n")
+                            if City != "":
+                                break
                         row[3] = City
 
 
                     elif choice_for_update == 4:
-                        Age = input("Enter The new Age of Worker \n")
+                        while True:
+                            try:
+                                Age = int(input("Enter The new Age of Worker \n"))
+                            except ValueError:
+                                print("Please Enter Number only")
+                            else:
+                                break
                         row[4] = Age
 
 
                     elif choice_for_update == 5:
-                        Date_Of_Birth = input("Enter the new date of birth of Worker \n")
+                        while True:
+                            try:
+                                Date_Of_Birth = int(input("Enter the new date of birth of Worker \n"))
+                            except ValueError:
+                                print("Please Enter Number only")
+                            else:
+                                break
                         row[5] = Date_Of_Birth
 
 
                     elif choice_for_update == 6:
-                        Address = input("Enter the new Address of Worker \n")
+                        while True:
+                            Address = input("Enter the new Address of Worker \n")
+                            if Address != "":
+                                break
                         row[6] = Address
 
 
                     elif choice_for_update == 7:
-                        Qualification = input("Enter the new qualification of a worker \n")
+                        while True:
+                            try :
+                                Qualification = int(input("Enter the new qualification of a worker \n"))
+                            except ValueError:
+                                print("Enter Valid Qulification")
+                            else:
+                                break
                         row[7] = Qualification
 
                     elif choice_for_update == 8:
-                        Designation = input("Enter the new Designation of a Worker \n")
+                        while True:
+                            Designation = input("Enter the new Designation of a Worker \n")
+                            if Designation != "":
+                                break
                         row[8] = Designation
 
                     elif choice_for_update == 9:
-                        Salary = input("Enter the new Salary of a Worker \n")
+                        while True:
+                            try:
+                                Salary = int(input("Enter the new Salary of a Worker \n"))
+                            except ValueError:
+                                print("Please Enter Number Only")
+                            else:
+                                break
                         row[9] = Salary
                 modifaied_list.append(row)
             file.close()
@@ -156,6 +220,13 @@ class Worker:
                 if choice_for_more_Delete == 'n' or choice_for_more_Delete == 'N':
                     break
 
+    def Display():
+        with open('Workerinformation.csv','r') as csv_file:
+            csv_reader = csv.reader(csv_file)
+            for lines in csv_reader:
+                print(lines)
+
+
 
 
 
@@ -168,39 +239,40 @@ while True:
                                "\n1) INSERT INFORMATION OF WORKERS "
                                "\n2) SEARCH INFORMATION OF WORKERS " 
                                "\n3) UPDATE INFORMATION OF WORKER "
-                               "\n4) DELETE THE INFORMATION OF WORKER \n"))
+                               "\n4) DELETE THE INFORMATION OF WORKER "
+                                "\n5) DISPLAY THE DATA OF WORKER"         
+                                "\n6) TO EXIT FROM THIS \n "))
             except ValueError:
                 print("Sorry I dont understand your answer ")
                 continue
             else:
                 break
-        if choice_of_user == 1 or choice_of_user == 2 or choice_of_user == 3 or choice_of_user == 4 :
+        if choice_of_user == 1 or choice_of_user == 2 or choice_of_user == 3 or choice_of_user == 4 or choice_of_user == 5 or choice_of_user == 6:
             break
     if choice_of_user == 1:
-        with open('Workerinformation.csv','a+',newline='')as file:
-            writer = csv.writer(file)
-            writer.writerow(["WORKER_ID", "NAME", "GENDER", "CITY", "AGE", "DATE OF BIRTH", "ADDRESS", "QUALIFICATION", "SALARY", "WORKER_COUNT"])
-            file.close()
+        file =  open('Workerinformation.csv','a+',newline='')
+        writer = csv.writer(file)
+        writer.writerow(["WORKER_ID", "NAME", "GENDER", "CITY", "AGE", "DATE OF BIRTH", "ADDRESS", "QUALIFICATION", "DESIGNATION", "SALARY", "WORKER_COUNT"])
+        file.close()
+        while True:
+            w1 = Worker()
+            w1.Add_Employ()
+            Worker.worker_list.append(w1)
+            with open('Workerinformation.csv','a+', newline='') as file:
+                myFile = csv.writer(file)
+                Worker_id = (w1.worker_id)
+                WorkerName = (w1.name)
+                WorkerGender = (w1.gender)
+                WorkerCity = (w1.city)
+                WorkerAge = (w1.age)
+                WorkerDate_Of_Birth = (w1.dob)
+                WorkerAddress = (w1.address)
+                WorkerQulificat = (w1.qualification)
+                WorkerDesignation = (w1.designation)
+                WorkerSalary = (w1.salary)
+                Worker_count = (w1.worker_count)
+                myFile.writerow([Worker_id,WorkerName, WorkerGender, WorkerCity, WorkerAge, WorkerDate_Of_Birth, WorkerAddress, WorkerQulificat, WorkerDesignation, WorkerSalary,Worker_count])
 
-            while True:
-                w1 = Worker()
-                w1.Add_Employ()
-                Worker.worker_list.append(w1)
-                with  open('Workerinformation.csv','a+', newline='') as file:
-                    myFile = csv.writer(file)
-                    Worker_id = (w1.worker_id)
-                    WorkerName = (w1.name)
-                    WorkerGender = (w1.gender)
-                    WorkerCity = (w1.city)
-                    WorkerAge = (w1.age)
-                    WorkerDate_Of_Birth = (w1.dob)
-                    WorkerAddress = (w1.address)
-                    WorkerQulificat = (w1.qualification)
-                    WorkerDesignation = (w1.designation)
-                    WorkerSalary = (w1.salary)
-                    Worker_count = (w1.worker_count)
-                    myFile.writerow([Worker_id,WorkerName, WorkerGender, WorkerCity, WorkerAge, WorkerDate_Of_Birth, WorkerAddress, WorkerQulificat, WorkerDesignation, WorkerSalary,Worker_count])
-                file.close()
 
 
                 choice_for_display = input("You Want to see the data which is inserted y or n ")
@@ -208,11 +280,11 @@ while True:
                     print('|', 'NAME','  |','GENDER','|','CITY','  |','AGE','|','DATE OF BIRTH','|','ADDRESS','        |','QUALIFICATION','|','DESIGNATION','|','SALARY','|')
                     for w1 in Worker.worker_list:
                         w1.display_details()
-                choice = input("If you want To stop to insert press yes otherwise press any key\n")
-                if choice == 'yes' or choice == 'YES':
+            choice = input("If you want To stop to insert press yes otherwise press any key\n")
+            if choice == 'yes' or choice == 'YES':
                     break
+            file.close()
 
-                file.close()
     elif choice_of_user == 2:
         try:
             Worker.Search()
@@ -228,8 +300,12 @@ while True:
             Worker.Delete()
         except FileNotFoundError:
             print("Please Insert the data first because data is not exists and then try again")
+    elif choice_of_user == 5:
+        try:
+            Worker.Display()
+        except FileNotFoundError:
+            print("Please Insert the data first because data is not exists and then try again")
 
 
-    choice_for_exit = input("IF YOU WANT TO EXIT THEN PRESS YES AND IF YOU DO NOT WANT TO EXIT PRESS NO \n")
-    if choice_for_exit == 'yes' or choice_for_exit == 'YES':
-        break
+    elif choice_of_user == 6:
+            break
