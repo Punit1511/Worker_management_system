@@ -47,18 +47,27 @@ class TestWorker(unittest.TestCase):
     def testsearch(self):
         for row in test_data_row_list:
             self.assertEqual(self.worker.Add_Employ(name), row[0])
+    def testSearch(self):
+        for row in test_data_row_list:
+            self.assertEqual(self.worker.Search(), row)
     def testUpdate1(self):
         for row in test_data_row_list :
             self.assertNotEqual(self.worker.Update(), row[1])
     def testUpdate(self):
         for row in test_data_row_list:
             self.assertEqual(self.worker.update(), row)
+    def testUpdate2(self):
+        for row in test_data_row_list:
+            self.assertNotIn(self.worker.Add_Employ(), row)
     def testDelete1(self):
         for row in test_data_row_list:
             self.assertNotEqual(self.worker.Add_employ(), row)
     def testDelete(self):
         for row in test_data_row_list:
             self.assertEqual(self.worker.Delete(), row)
+    def testDelete(selfself):
+        for row in test_data_row_list:
+            self.assertNotIn(sel.worker.Add_Employ(),row)
 
 
             
