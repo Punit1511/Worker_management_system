@@ -2,7 +2,7 @@ import csv
 class Worker:
     worker_count = 0
     worker_id = 0
-    worker_list = []
+    worker = []
 
     def Add_Employ(self):
         while True:
